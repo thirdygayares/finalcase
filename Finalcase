@@ -1,0 +1,454 @@
+package casestudy;
+
+import java.util.*;
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+
+public class Finalcase {
+
+    public static JFrame frame;
+    public static Scanner group3sc = new Scanner(System.in);
+ 
+    public static String accountTable[][] = {
+            {
+                "0123-4567-8901",
+                "Roel Richard",
+                "5000.00",
+                "1111"
+            },
+            {
+                "2345-6789-0123",
+                "Dorie Marie",
+                "0.00",
+                "2222"
+            },
+            {
+                "3456-7890-1234",
+                "Railee Darrel ",
+                "10000",
+                "3333"
+            },
+            {
+                "4567-8901-2345",
+                "Railynne Dessirei",
+                "2500",
+                "4444"
+            },
+            {
+                "5678-9012-3456",
+                "Raine Dessirei  ",
+                "10000",
+                "5555"
+            }
+
+        },
+        accountNumber = " ",
+        accountName = " ",
+        changePinnumber = " ",
+        enterCutomerAccountNumber = " ",
+    	enterCutomerAccountNumberInName = " ";
+ 
+    public static int passwordTrial = 3;
+    public static double balance = 0,
+        withdrawn = 0;
+    public static void main(String[] args)  {
+        //how to create method
+        JOptionPane.showMessageDialog(frame, "Welcome to RGBC", "Have a nice day", JOptionPane.INFORMATION_MESSAGE);
+        group3OuputOne();
+
+    }
+
+    //method1
+    public static void group3OuputOne() {
+        //how to create method
+        System.out.println("____________________");
+        System.out.println("       RGBC");
+        System.out.println("    Richard Gwapo Banking Corporation");
+        System.out.println("____________________");
+        System.out.println("\n S -> Start Transaction");
+        System.out.println("   Q -> Quit");
+        System.out.print(" \n\n Enter your choice: ");
+
+        char choiceOne = group3sc.next().charAt(0);
+
+        switch (choiceOne) {
+            case 's':
+            case 'S':
+                passwordTrial = 3;
+                group3OutputTwo();
+                break;
+            case 'q':
+            case 'Q':
+                System.out.println("You are terminated");
+                System.exit(0);
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(frame, "              Invalid Choices\nPlease Type According To Instructions", "Invalid Choices", JOptionPane.WARNING_MESSAGE);
+                //System.out.println("\n   Invalid Choices\n");
+                group3OuputOne();
+        }
+
+    }
+    //method2
+    public static void group3OutputTwo() {
+
+        String pinnumber = "";
+        System.out.println("____________________");
+        System.out.println("       RGBC");
+        System.out.println("    Richard Gwapo Banking Corporation");
+        System.out.println("____________________");
+        System.out.println("\n Enter your Pin Number ");
+        System.out.print(" \n");
+        pinnumber = group3sc.next();
+
+        if (pinnumber.equals("0000")) {
+
+            adminCase();
+        }
+
+        for (int i = 0; i < accountTable.length; i++) {
+            if (pinnumber.equals(accountTable[i][3])) {
+                accountNumber = accountTable[i][0];
+                accountName = accountTable[i][1];
+                balance = Double.parseDouble(accountTable[i][2]);
+                changePinnumber = accountTable[i][3];
+                group3OutputThree();
+                System.exit(0);
+            }
+        }
+
+        if (passwordTrial <= 1) {
+            JOptionPane.showMessageDialog(frame, "CAPTURED CARD \n PLEASE CALL 143-44", "Captured Card", JOptionPane.WARNING_MESSAGE);
+            //System.out.println("CAPTURED CARD….\r\n" + "PLEASE CALL 143-44");
+            group3OuputOne();
+        } else {
+            //System.out.println("Invalid Pincode\nPlease try again"); 
+
+            --passwordTrial;
+            JOptionPane.showMessageDialog(frame, "Invalid Pincode \n You have: " + passwordTrial + " attempt left", "Please Try Again", JOptionPane.WARNING_MESSAGE);
+            // System.out.println("You have " + passwordTrial + " attempt left");
+            group3OutputTwo();
+
+        }
+
+    }
+
+    //method3
+    public static void group3OutputThree() {
+        System.out.println("____________________");
+        System.out.println("       RGBC");
+        System.out.println("    Richard Gwapo Banking Corporation");
+        System.out.println("____________________");
+        System.out.println("\n   Select Type of Transaction: ");
+        System.out.println("\n     B-> Balance Inquiry ");
+        System.out.println("     W-> Withdrawal ");
+        System.out.println("     D-> Deposit");
+        System.out.println("     C-> Cancel");
+        System.out.print("\nEnter transaction Type: ");
+        char transactionType = group3sc.next().charAt(0);
+
+        switch (transactionType) {
+            case 'b':
+            case 'B':
+                balanceInquiry();
+                break;
+            case 'w':
+            case 'W':
+                withdrawalOutput();
+                break;
+            case 'd':
+            case 'D':
+                depositOutput();
+                break;
+            case 'c':
+            case 'C':
+                group3OuputOne();
+                break;
+            default:
+                JOptionPane.showMessageDialog(frame, "              Invalid Choices\nPlease Type According To Instructions", "Invalid Choices", JOptionPane.WARNING_MESSAGE);
+                //System.out.println("Invalid Choices");
+                group3OutputThree();
+        }
+
+    }
+
+    //method 4 balance inquiry 
+    public static void balanceInquiry() {
+        System.out.println("____________________");
+        System.out.println("       RGBC");
+        System.out.println("    Richard Gwapo Banking Corporation");
+        System.out.println("____________________");
+        System.out.println("\n      Account #:       " + accountNumber);
+        System.out.println("      Account Name:    " + accountName);
+        System.out.println("      Balance:         " + balance);
+
+        System.out.println("\n     Press X to Exit");
+        char pressx = group3sc.next().charAt(0);
+
+        switch (pressx) {
+            case 'x':
+            case 'X':
+                group3OutputThree();
+                break;
+
+        }
+    }
+
+    public static void withdrawalOutput() {
+
+        System.out.println("____________________");
+        System.out.println("       RGBC");
+        System.out.println("    Richard Gwapo Banking Corporation");
+        System.out.println("____________________");
+        System.out.println("\nEnter amount to be withdrawn ");
+        withdrawn = group3sc.nextDouble();
+
+        if (withdrawn < 100) {
+            System.out.println("\n\nWithdrawn amount should not be\r\n" + "lower than 100 pesos");
+            System.out.println("Valid amount: 100, 200, 1700....etc(100 denomination)");
+            System.out.println("Invalid amount: 450, 10 , 1000.25....etc\n");
+            withdrawalOutput();
+        } else if (withdrawn > balance) {
+            System.out.println("\n\nInsufficient Fund");
+            withdrawalOutput();
+        } else {
+
+            if (withdrawn % 100 == 0) {
+                balance = balance - withdrawn;
+            } else {
+                System.out.println("Valid amount: 100, 200, 1700....etc(100 denomination)");
+                System.out.println("Invalid amount: 450, 10 , 1000.25....etc\n");
+                withdrawalOutput();
+            }
+        }
+
+        System.out.println("\n     Press X to Exit");
+        char pressx = group3sc.next().charAt(0);
+
+        switch (pressx) {
+            case 'x':
+            case 'X':
+                group3OutputThree();
+                break;
+        }
+    }
+
+    public static void depositOutput() {
+        System.out.println("____________________");
+        System.out.println("       RGBC");
+        System.out.println("    Richard Gwapo Banking Corporation");
+        System.out.println("____________________");
+        System.out.println("\nEnter amount to be deposited ");
+        double deposited = group3sc.nextDouble();
+
+        if (deposited < 100) {
+            System.out.println("\ndeposit amount should not be\n" + "lower than 100 pesos");
+            depositOutput();
+        } else {
+            balance = balance + deposited;
+
+        }
+        System.out.println("\n     Press X to Exit");
+        char pressx = group3sc.next().charAt(0);
+
+        switch (pressx) {
+            case 'x':
+            case 'X':
+                group3OutputThree();
+                break;
+        }
+    }
+
+    public static void adminCase() {
+        System.out.println("____________________");
+        System.out.println("       RGBC");
+        System.out.println("    Richard Gwapo Banking Corporation");
+        System.out.println("____________________");
+        System.out.println("\n  What would you like to do? ");
+        System.out.println("\n     ( V ) - View Customer Information ");
+        System.out.println("     ( A ) - Add new Customer ");
+        System.out.println("     ( E ) - Edit Customer Information");
+        System.out.println("     ( C ) - Change Customer Pin Number");
+        System.out.println("     ( X ) - Exit");
+        System.out.print("\n\nEnter your choice: ");
+        char adminTransactionType = group3sc.next().charAt(0);
+
+        switch (adminTransactionType) {
+            case 'v':
+            case 'V':
+                customerInformation();
+                break;
+            case 'a':
+            case 'A':
+                newCustomer();
+                break;
+            case 'e':
+            case 'E':
+                editCustomerInformation();
+                System.exit(0);
+                break;
+            case 'c':
+            case 'C':
+                changeCustomerPinNumber();
+                break;
+            case 'x':
+            case 'X':
+                group3OuputOne();
+                break;
+            default:
+                JOptionPane.showMessageDialog(frame, "              Invalid Choices\nPlease Type According To Instructions", "Invalid Choices", JOptionPane.WARNING_MESSAGE);
+                adminCase();
+        }
+    }
+
+    public static void customerInformation() {
+        System.out.println("Customer Information");
+        System.out.println("==============================================================================================================");
+        System.out.println("|       Account Number       |        Account Name           |      Balance          |      Pin Number       |" );
+        System.out.println("==============================================================================================================");
+        					
+    	for(int j=0; j<accountTable.length; j++) {
+    		
+    			for(int i=0; i<accountTable[j].length; i++) {
+    				System.out.print("|       ");
+    				System.out.print(accountTable[j][i] + "\t     ");
+    				
+    				
+    			}
+    			System.out.print("|       ");
+    			 System.out.print("\n==============================================================================================================");
+    			System.out.println();
+    	}
+    	
+    	
+    	System.exit(0);
+    	System.out.println();
+    	}
+
+    
+
+    public static void newCustomer() {
+        System.out.println("New Customer");
+    }
+
+    
+    //change account name of customer
+    public static void editCustomerInformation() {
+        System.out.println("____________________");
+        System.out.println("       RGBC");
+        System.out.println("    Richard Gwapo Banking Corporation");
+        System.out.println("____________________");
+        System.out.println("\n Enter Customer Account Number ");
+        System.out.print(" \n\t");
+        enterCutomerAccountNumberInName  = group3sc.next();
+        
+        for (int i = 0; i < accountTable.length; i++) {
+            if (enterCutomerAccountNumberInName .equals(accountTable[i][0])) {
+                System.out.println("Current Account Name: " + accountTable[i][1]);
+                System.out.print(" \n=== Change Customer Information === "  );
+                
+                newAccountName();
+                System.exit(0);
+            }
+        }
+        System.out.println("No account Number Found");
+        editCustomerInformation();
+    }
+
+    //new account name
+    public static void newAccountName(){
+    	
+    	  for (int i = 0; i < accountTable.length; i++) {
+              if (enterCutomerAccountNumberInName .equals(accountTable[i][0])) {
+            	
+            	 //String newMiddlename = "";
+            	 System.out.print(" \n LastName: ");
+            	 String newLastName =  group3sc.next();
+            	 System.out.print(" \n FistName: ");
+            	 String newFirstName = group3sc.next();
+            	// System.out.print(" \n MiddleName: " + newMiddlename);
+            	 //newMiddlename = group3sc.next();
+            	 
+            	 
+            	 String newFullName = newFirstName + " " + newLastName;
+            	 
+                  accountTable[i][1] = newFullName;
+                  JOptionPane.showMessageDialog(frame, "<html><p align=center>" + "Succesfully Changed the Account Name of \n             Mr/Ms. " + accountTable[i][1], "Success", JOptionPane.INFORMATION_MESSAGE);
+                  
+                  adminCase();
+                  System.exit(0);
+              }
+              
+          }
+        
+    
+        }
+   
+    
+
+    //change customer pin number
+    public static void changeCustomerPinNumber() {
+        System.out.println("____________________");
+        System.out.println("       RGBC");
+        System.out.println("    Richard Gwapo Banking Corporation");
+        System.out.println("____________________");
+        System.out.println("\n Enter Customer Account Number ");
+        System.out.print(" \n");
+        enterCutomerAccountNumber = group3sc.next();
+
+        for (int i = 0; i < accountTable.length; i++) {
+
+            if (enterCutomerAccountNumber.equals(accountTable[i][0])) {
+                System.out.println("Account Name: " + accountTable[i][1]);
+                System.out.println("Current Pin Number: " + accountTable[i][3]);
+                NewPinNumber();
+                System.exit(0);
+            }
+        }
+        System.out.println("No account Number Found");
+        changeCustomerPinNumber();
+    }
+
+
+    public static void NewPinNumber() {
+        for (int i = 0; i < accountTable.length; i++) {
+            if (enterCutomerAccountNumber.equals(accountTable[i][0])) {
+
+                System.out.print(" \nEnter New Pin Number: ");
+                String newPinTrial1 = group3sc.next();
+
+                if (newPinTrial1.equals(accountTable[i][3])) {
+                    System.out.print(" \nThis is the Current pin number of customer");
+                    NewPinNumber();
+                    System.exit(0);
+                }
+
+                for (int j = 0; j < accountTable.length; j++) {
+                    if (newPinTrial1.equals(accountTable[j][3])) {
+                        System.out.println("This Pin Is already Taken");
+                        NewPinNumber();
+                    }
+                }
+
+                System.out.print(" Repeat New Pin Number: ");
+
+                String newPinTrial2 = group3sc.next();
+
+                if (newPinTrial2.equals(newPinTrial1)) {
+                	
+                    accountTable[i][3] = newPinTrial2;
+                    JOptionPane.showMessageDialog(frame, "<html><p align=center>" + "Succesfully Changed the Pin number of \n             Mr/Ms. " + accountTable[i][1], "Success", JOptionPane.INFORMATION_MESSAGE);
+                    adminCase();
+
+                } else {
+                    System.out.println("The two pin is not the same");
+                    NewPinNumber();
+                }
+                System.exit(0);
+            }
+        }
+    }
+    
+    //for class 
+}
